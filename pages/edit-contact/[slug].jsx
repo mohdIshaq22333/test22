@@ -12,8 +12,12 @@ function AddContact() {
     useEffect(() => {
         if (window) {
           console.log(JSON.parse(window.localStorage.getItem("list")));
-          let temp = JSON.parse(window.localStorage.getItem("list"));
-          setList(() => (temp ? temp : []));
+          setList(() => 
+          {
+              let temp = JSON.parse(window.localStorage.getItem("list"));
+             return (temp ? temp : [])
+            }
+          );
         }
       }, []);
       useEffect(() => {
@@ -21,7 +25,7 @@ function AddContact() {
             console.log(slug)
               setDetails(list[slug])
             // }
-      },[list])
+      },[list,slug])
     function submit(e){
         e.preventDefault();
         if(details.name=="" || details.number=="" || details.type=="" ){

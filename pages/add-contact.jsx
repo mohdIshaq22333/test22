@@ -11,6 +11,11 @@ function AddContact() {
           setList(() => (temp ? temp : []));
         }
       }, []);
+      useEffect(() => {
+if(window && list[0]){
+    window.localStorage.setItem('list', JSON.stringify(list));
+}
+      },[list])
     const [details,setDetails]=useState({
         name:"",
         number:"",
@@ -24,12 +29,11 @@ function AddContact() {
             return;
         } 
             setList((val)=>{
-               let temp= list;
-               temp.push(details);
-               console.log(list);
+               let temp= [details,...list];
+            //    temp.push(details);
+               console.log(temp);
             return temp;
             })
-            window.localStorage.setItem('list', JSON.stringify(list));
             setStatus(1);
         console.log(details)
     }
@@ -39,14 +43,14 @@ function AddContact() {
         <h1>Add Contact</h1>
         <input  placeholder="Name"  type="text" value={details.name} onChange={(e)=>setDetails((val)=>({...val,name:e.target.value}))} />
         <input placeholder="Number" type="number" value={details.number} onChange={(e)=>setDetails((val)=>({...val,number:e.target.value}))} />
-        <select  name="type" id="type"  onChange={(e)=>setDetails((val)=>({...val,type:e.target.value}))}>
+        <select  name="type" id="type" value={{label:details.type,value:details.value}}  onChange={(e)=>setDetails((val)=>({...val,type:e.target.value}))}>
         <option disabled selected value> -- select type -- </option>
   <option value="personal">Personal</option>
   <option value="office">Office</option>
 </select>   
 <div className="checkBox">
     <span>Whatsapp</span>
-     <input  type="checkbox" value={details.whatsapp} onChange={(e)=>setDetails((val)=>({...val,whatsapp:e.target.checked}))}/>
+     <input  type="checkbox" value={details.whatsapp ? "checked" : ""} onChange={(e)=>setDetails((val)=>({...val,whatsapp:e.target.checked}))}/>
 </div>
 {status===-1 && <p>All fields are required</p> }
 {status===1 && <p>Form Submitted</p> }
