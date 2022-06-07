@@ -11,8 +11,16 @@ export default function Home() {
       setList(() => (temp ? temp : []));
     }
   }, []);
+  function deleteFunc(num){
+setList(()=>{
+  let temp=list.filter((val,index)=>index!==num);
+  window.localStorage.setItem("list", JSON.stringify(temp));
+  console.log(temp);
+return temp;
+})
+  }
   return (
-    <MainDiv onClick={()=>console.log(list)}>
+    <MainDiv >
       <div className="mainCont">
         <div className="header">
           <h1>List of Contacts</h1>
@@ -33,10 +41,22 @@ export default function Home() {
               <td>{val.number}</td>
               <td>{val.type}</td>
               <td className="dot">{val.whatsapp ? "Yes" : "No"}</td>
+              <div className="editAndDelete">
+                <span>
+                <Link href={`/edit-contact/${index}`}>
+            <a>  edit </a>
+          </Link>
+                 
+                  </span><span onClick={()=>deleteFunc(index)}>delete</span>
+              </div>
             </tr>
             
           )}
+
         </table>
+        {
+          !list[0] && <span className="noContacts">No contacts</span>
+        }
       </div>
     </MainDiv>
   );
@@ -46,6 +66,13 @@ const MainDiv = Style.div`
 font-family: Poppins;
 max-width:600px;
 margin:auto;
+}
+.noContacts{
+  display: flex;
+  margin: auto;
+  width: fit-content;
+  margin-top: 100px;
+  font-size: 20px;
 }
 .header{
   display: flex;
@@ -74,6 +101,18 @@ margin:auto;
   td{
     font-size: 12px;
   }
-
+.editAndDelete{
+  font-size: 12px;
+    width: 46px;
+    display:flex;
+    span{
+      color:red;
+      cursor:pointer
+    }
+    span:nth-child(1){
+      color:green;
+      margin-right:10px;
+    }
+}
 }
 `;
