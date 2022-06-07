@@ -8,7 +8,6 @@ export default function Home() {
 
   useEffect(() => {
     if (window) {
-      console.log(JSON.parse(window.localStorage.getItem("list")));
       let temp = JSON.parse(window.localStorage.getItem("list"));
       setList(() => (temp ? temp : []));
     }
@@ -17,7 +16,6 @@ export default function Home() {
 setList(()=>{
   let temp=list.filter((val,index)=>index!==num);
   window.localStorage.setItem("list", JSON.stringify(temp));
-  console.log(temp);
 return temp;
 })
 setDeletee(-1);

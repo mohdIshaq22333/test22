@@ -13,7 +13,6 @@ function AddContact() {
   const [file, setFile] = useState();
   useEffect(() => {
     if (window) {
-      console.log(JSON.parse(window.localStorage.getItem("list")));
       let temp = JSON.parse(window.localStorage.getItem("list"));
       setList(() => (temp ? temp : []));
     }
@@ -38,11 +37,9 @@ return;
       let obj=details;
       obj.url=url
       let temp = [obj, ...list];
-      console.log(temp);
       return temp;
     });
     setStatus(1);
-    console.log(details);
   }
     function mainSubmit(e){
     e.preventDefault();
@@ -59,7 +56,7 @@ return;
   }
   return (
     <MainDiv>
-      <form onClick={(va)=>console.log(file)}>
+      <form>
         <h1>Add Contact</h1>
         <input
           placeholder="Name"

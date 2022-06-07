@@ -17,7 +17,6 @@ function AddContact() {
 
   useEffect(() => {
     if (window) {
-      console.log(JSON.parse(window.localStorage.getItem("list")));
       setList(() => {
         let temp = JSON.parse(window.localStorage.getItem("list"));
         return temp ? temp : [];
@@ -26,7 +25,6 @@ function AddContact() {
   }, []);
   useEffect(() => {
     //   if(list[0]){
-    console.log(slug);
     setDetails(list[slug]);
     // }
   }, [list, slug]);
